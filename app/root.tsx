@@ -23,6 +23,10 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
+import { registerLicense } from "@syncfusion/ej2-base";
+
+registerLicense(import.meta.env.VITE_SYNCFUSION_LICENSE_KEY); // REGISTER FOR USAGE OF SYNC-FUSION COMPONENTS
+
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
