@@ -1,4 +1,17 @@
-import { Link } from "react-router";
+import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
+import { Link, redirect } from "react-router";
+import { loginWithGoogle } from "~/appwrite/auth";
+import { account } from "~/appwrite/client";
+
+export async function clientLoader() {
+  try {
+    const user = await account.get();
+
+    if (user.$id) return redirect("/");
+  } catch (e) {
+    console.log("Error fettching user", e);
+  }
+}
 
 const SignIn = () => {
   return (
@@ -15,6 +28,31 @@ const SignIn = () => {
             </Link>
             <h1 className="p-28-bold text-dark-100">Tourvisto</h1>
           </header>
+
+          <article>
+            <h2 className="p-28-semibold text-dark-100 text-center">
+              Start Your Travel Journey
+            </h2>
+            <p className="p-18-regular text-center text-gray-100 !leading-7">
+              Sign in with Google to explore AI-generated itineries, trending
+              destinations, and much more
+            </p>
+          </article>
+          <ButtonComponent
+            type="button"
+            iconCss="e-search-icon"
+            className="button-class !h-11 !w-full"
+            onClick={loginWithGoogle}
+          >
+            <img
+              src="/assets/icons/google.svg"
+              className="size-5"
+              alt="google"
+            />
+            <span className="p-18-semibold font-semibold text-white">
+              Sign in with Google
+            </span>
+          </ButtonComponent>
         </div>
       </section>
     </main>
@@ -22,3 +60,6 @@ const SignIn = () => {
 };
 
 export default SignIn;
+
+// In react router, A loader is a function that runs before the route component is rendered. It can be used to fetch data, check authentication, or perform any other necessary setup before the component is displayed. The loader function can return a promise that resolves to the data needed by the component, and this data will be passed as props to the component.
+// it is an asyncfunction tied to a route, and provides the data to the component tot be used immediately it appears
