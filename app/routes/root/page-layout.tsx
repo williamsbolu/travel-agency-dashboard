@@ -15,7 +15,12 @@ const PageLayout = () => {
         <img src="/assets/icons/logout.svg" className="size-6" alt="logout" />
       </button>
 
-      <button onClick={() => navigate("/dashboard")}>Dashboard</button>
+      <button
+        onClick={() => navigate("/dashboard")}
+        className="cursor-pointer border"
+      >
+        Dashboard
+      </button>
     </div>
   );
 };

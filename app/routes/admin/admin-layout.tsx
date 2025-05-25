@@ -1,5 +1,6 @@
-import { Outlet, redirect } from "react-router";
+import { Outlet, redirect, useNavigation } from "react-router";
 import { SidebarComponent } from "@syncfusion/ej2-react-navigations";
+import { FiLoader } from "react-icons/fi";
 import { MobileSidebar, NavItems } from "components";
 import { account } from "~/appwrite/client";
 import { getExistingUser, storeUserData } from "~/appwrite/auth";
@@ -26,6 +27,9 @@ export async function clientLoader() {
 }
 
 const AdminLayout = () => {
+  const navigation = useNavigation();
+  const isNavigating = Boolean(navigation.location);
+
   return (
     <div className="admin-layout">
       <MobileSidebar />
@@ -37,7 +41,15 @@ const AdminLayout = () => {
       </aside>
 
       <aside className="children">
-        <Outlet />
+        {isNavigating ? (
+          <div className="h-full flex items-center justify-center">
+            <span className="">
+              <FiLoader className="animate-spin size-7" />
+            </span>
+          </div>
+        ) : (
+          <Outlet />
+        )}
       </aside>
     </div>
   );
