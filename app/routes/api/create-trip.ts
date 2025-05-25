@@ -68,13 +68,13 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
     const textResult = await genAI.models.generateContent({
       model: "gemini-2.0-flash",
-      contents: [prompt],
+      contents: prompt,
     });
 
-    console.log({ text: textResult.text });
+    // console.log({ text: textResult.text });
     const trip = parseMarkdownToJson(textResult.text!);
 
-    console.log({ trip });
+    // console.log({ trip });
 
     const imageResponse = await fetch(
       `https://api.unsplash.com/search/photos?query=${country} ${interests} ${travelStyle}&client_id=${unsplashApiKey}`
