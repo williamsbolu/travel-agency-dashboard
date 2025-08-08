@@ -1,4 +1,5 @@
 import { cn } from "lib/utils";
+import { FaRegUser } from "react-icons/fa6";
 import {
   Link,
   useLoaderData,
@@ -39,30 +40,45 @@ const RootNavbar = () => {
         </Link>
 
         <aside>
-          {user.status === "admin" && (
+          {user ? (
+            user.status === "admin" && (
+              <Link
+                to="/dashboard"
+                className={cn("text-base font-normal text-white", {
+                  "text-dark-100": location.pathname.startsWith("/travel"),
+                })}
+              >
+                Admin Panel
+              </Link>
+            )
+          ) : (
             <Link
-              to="/dashboard"
+              to="/sign-in"
               className={cn("text-base font-normal text-white", {
                 "text-dark-100": location.pathname.startsWith("/travel"),
               })}
             >
-              Admin Panel
+              <FaRegUser className="w-4 h-4" />
+              Sign in
             </Link>
           )}
 
-          <img
-            src={user?.imageUrl || "/assets/images/david.wepb"}
-            alt="user"
-            referrerPolicy="no-referrer"
-          />
-
-          <button onClick={handleLogout} className="cursor-pointer">
-            <img
-              src="/assets/icons/logout.svg"
-              alt="logout"
-              className="size-6 rotate-180"
-            />
-          </button>
+          {user && (
+            <>
+              <img
+                src={user?.imageUrl || "/assets/images/david.wepb"}
+                alt="user"
+                referrerPolicy="no-referrer"
+              />
+              <button onClick={handleLogout} className="cursor-pointer">
+                <img
+                  src="/assets/icons/logout.svg"
+                  alt="logout"
+                  className="size-6 rotate-180"
+                />
+              </button>
+            </>
+          )}
         </aside>
       </header>
     </nav>
